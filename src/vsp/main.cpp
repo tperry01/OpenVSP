@@ -46,6 +46,7 @@
 using namespace vsp;
 using namespace std;
 
+/*
 bool RunUnitTests()
 {
     Test::TextOutput output( Test::TextOutput::Verbose );
@@ -61,6 +62,7 @@ bool RunUnitTests()
 
     return true;
 }
+*/
 
 bool ExtractVersionNumber( string & str, int* major, int* minor, int* change )
 {
