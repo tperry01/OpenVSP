@@ -20,8 +20,14 @@ public:
 protected:
 
     GroupLayout m_MassLayout;
-    ToggleButton m_PointMassButton;
-    Input m_MassInput;
+    ToggleButton m_PointMassButton;    
+    SliderAdjRangeInput m_MassSlider;
+    SliderAdjRangeInput m_IxxSlider;
+    SliderAdjRangeInput m_IyySlider;
+    SliderAdjRangeInput m_IzzSlider;
+    SliderAdjRangeInput m_IxySlider;
+    SliderAdjRangeInput m_IxzSlider;
+    SliderAdjRangeInput m_IyzSlider;
 
     SliderAdjRangeInput m_AxisLengthSlider;
 

@@ -2475,7 +2475,10 @@ string Vehicle::MassProps( int set, int numSlices, bool hidegeom, bool writefile
                     if ( BGeom->m_PointMassFlag() )
                     {
                         TetraMassProp* pm = new TetraMassProp(); // Deleted by mesh_ptr
-                        pm->SetPointMass( BGeom->m_PointMass(), BGeom->m_Origin );
+                        vec3d pmIxxIyyIzz = vec3d( (double) BGeom->m_PointMassIxx(), (double) BGeom->m_PointMassIyy(), (double) BGeom->m_PointMassIzz() );
+                        vec3d pmIxyIxzIyz = vec3d( (double) BGeom->m_PointMassIxy(), (double) BGeom->m_PointMassIxz(), (double) BGeom->m_PointMassIyz() );
+						vec3d pmRotVec = vec3d( (double) BGeom->m_XRot(), (double) BGeom->m_YRot(), (double) BGeom->m_ZRot() );
+                        pm->SetPointMass( BGeom->m_PointMass(), BGeom->m_Origin, pmIxxIyyIzz, pmIxyIxzIyz, pmRotVec );
                         pm->m_CompId = BGeom->GetID();
                         mesh_ptr->AddPointMass( pm );
                     }

@@ -204,7 +204,7 @@ TetraMassProp::TetraMassProp( string id, double denIn, vec3d& p0, vec3d& p1, vec
 }
 
 
-void TetraMassProp::SetPointMass( double massIn, vec3d& pos )
+void TetraMassProp::SetPointMass( double massIn, vec3d& pos, vec3d& pmIxxIyyIzzIn, vec3d& pmIxyIxzIyzIn, vec3d& pmRotVec )
 {
     m_CompId = "NONE";
     m_PointMassFlag = true;
@@ -213,13 +213,30 @@ void TetraMassProp::SetPointMass( double massIn, vec3d& pos )
     m_Vol  = 0.0;
     m_Mass = massIn;
 
-    m_Ixx = 0.0;
-    m_Iyy = 0.0;
-    m_Izz = 0.0;
+	Matrix4d pmI = Matrix4d();
+	pmI.data()[0] = pmIxxIyyIzzIn.x();
+	pmI.data()[5] = pmIxxIyyIzzIn.y();
+	pmI.data()[10] = pmIxxIyyIzzIn.z();
 
-    m_Ixy = 0.0;
-    m_Iyz = 0.0;
-    m_Ixz = 0.0;
+	pmI.data()[1] = -pmIxyIxzIyzIn.x();
+	pmI.data()[2] = -pmIxyIxzIyzIn.y();
+	pmI.data()[6] = -pmIxyIxzIyzIn.z();
+
+	pmI.data()[4] = -pmIxyIxzIyzIn.x();
+	pmI.data()[8] = -pmIxyIxzIyzIn.y();
+	pmI.data()[9] = -pmIxyIxzIyzIn.z();
+
+	pmI.rotateX(-pmRotVec.x());
+	pmI.rotateY(-pmRotVec.y());
+	pmI.rotateZ(-pmRotVec.z());
+
+    m_Ixx = pmI.data()[0];
+    m_Iyy = pmI.data()[5];
+    m_Izz = pmI.data()[10];
+
+	m_Ixy = -pmI.data()[1];
+    m_Ixz = -pmI.data()[2];
+    m_Iyz = -pmI.data()[6];
 
 }
 

@@ -31,7 +31,13 @@ public:
 
     BoolParm m_PointMassFlag;
     Parm     m_PointMass;
-    Parm m_AxisLength;
+    Parm     m_AxisLength;
+    Parm     m_PointMassIxx;
+    Parm     m_PointMassIyy;
+    Parm     m_PointMassIzz;
+    Parm     m_PointMassIxy;
+    Parm     m_PointMassIxz;
+    Parm     m_PointMassIyz;
 
     vec3d m_Origin;
     vector < vec3d > m_Axis;

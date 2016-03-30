@@ -20,6 +20,12 @@ BlankGeom::BlankGeom( Vehicle* vehicle_ptr ) : Geom( vehicle_ptr )
     m_PointMassFlag.Init( "Point_Mass_Flag", "Mass", this, false, 0, 1 );
     m_PointMass.Init( "Point_Mass", "Mass", this, 0, 0, 1e12 );
     m_AxisLength.Init( "Axis_Length", "Axis", this, 1.0, 0.0, 1e12 );
+    m_PointMassIxx.Init( "Point_Mass_Ixx", "Mass", this, 0, 0, 1e12 );
+    m_PointMassIyy.Init( "Point_Mass_Iyy", "Mass", this, 0, 0, 1e12 );
+    m_PointMassIzz.Init( "Point_Mass_Izz", "Mass", this, 0, 0, 1e12 );
+    m_PointMassIxy.Init( "Point_Mass_Ixy", "Mass", this, 0, -1e12, 1e12 );
+    m_PointMassIxz.Init( "Point_Mass_Ixz", "Mass", this, 0, -1e12, 1e12 );
+    m_PointMassIyz.Init( "Point_Mass_Iyz", "Mass", this, 0, -1e12, 1e12 );
 
     // Disable Parameters that don't make sense for BlankGeom
     m_SymPlanFlag.Deactivate();
@@ -43,10 +49,22 @@ void BlankGeom::UpdateSurf()
     if ( m_PointMassFlag.Get() )
     {
         m_PointMass.Activate();
+        m_PointMassIxx.Activate();
+        m_PointMassIyy.Activate();
+        m_PointMassIzz.Activate();
+        m_PointMassIxy.Activate();
+        m_PointMassIxz.Activate();
+        m_PointMassIyz.Activate();
     }
     else
     {
         m_PointMass.Deactivate();
+        m_PointMassIxx.Deactivate();
+        m_PointMassIyy.Deactivate();
+        m_PointMassIzz.Deactivate();
+        m_PointMassIxy.Deactivate();
+        m_PointMassIxz.Deactivate();
+        m_PointMassIyz.Deactivate();
     }
 
     GeomXForm::Update();
@@ -127,5 +145,11 @@ void BlankGeom::ReadV2File( xmlNodePtr &root )
     {
         m_PointMassFlag = XmlUtil::FindInt( blank_node, "PointMassFlag", m_PointMassFlag() );
         m_PointMass = XmlUtil::FindDouble( blank_node, "PointMass", m_PointMass() );
+        m_PointMassIxx = XmlUtil::FindDouble( blank_node, "PointMassIxx", m_PointMassIxx() );
+        m_PointMassIyy = XmlUtil::FindDouble( blank_node, "PointMassIyy", m_PointMassIyy() );
+        m_PointMassIzz = XmlUtil::FindDouble( blank_node, "PointMassIzz", m_PointMassIzz() );
+        m_PointMassIxy = XmlUtil::FindDouble( blank_node, "PointMassIxy", m_PointMassIxy() );
+        m_PointMassIxz = XmlUtil::FindDouble( blank_node, "PointMassIxz", m_PointMassIxz() );
+        m_PointMassIyz = XmlUtil::FindDouble( blank_node, "PointMassIyz", m_PointMassIyz() );
     }
 }
